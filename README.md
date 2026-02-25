@@ -7,7 +7,7 @@ This repository demonstrates a proof-of-concept integration between OG-Core and 
 ---
 
 ## 🎯 Project Overview
-
+![img.png](img.png)
 This project extends MUIO (Modelling User Interface for OSeMOSYS) to integrate with OG-Core, a dynamic overlapping generations model. The integration enables:
 
 - **OG-Core → CLEWS**: Interest rates inform energy investment discount rates
