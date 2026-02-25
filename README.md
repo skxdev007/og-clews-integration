@@ -7,8 +7,14 @@ This repository demonstrates a proof-of-concept integration between OG-Core and 
 ---
 
 ## 🎯 Project Overview
-![img.png](img.png)
-This project extends MUIO (Modelling User Interface for OSeMOSYS) to integrate with OG-Core, a dynamic overlapping generations model. The integration enables:
+
+This repository demonstrates a proof-of-concept integration between OG-Core and MUIO/CLEWS, enabling bidirectional data exchange between macroeconomic and energy system models.
+
+**Repository Structure:**
+- **This repo** (`og-clews-integration`): Demonstrations, examples, and documentation
+- **MUIO fork** (`og-clews-muio-integration`): Actual integration → https://github.com/skxdev007/og-clews-muio-integration
+
+The integration enables:
 
 - **OG-Core → CLEWS**: Interest rates inform energy investment discount rates
 - **CLEWS → OG-Core**: Energy prices affect macroeconomic production costs
@@ -69,6 +75,7 @@ OG-Core (Python) ← FEEDBACK LOOP CLOSED
 
 ## 📁 Repository Structure
 
+### This Repository (Demonstration & Documentation)
 ```
 og-clews-integration/
 ├── README.md                                    # This file
@@ -79,32 +86,21 @@ og-clews-integration/
 ├── extract_real_data.py                        # Extract interest rates from OG-Core TPI_vars.pkl
 ├── real_data_handshake_demo.py                 # One-way demonstration (OG → CLEWS)
 ├── bidirectional_demo.py                       # Bidirectional demonstration (OG ↔ CLEWS)
-├── real_og_core_interest_rates.npy             # Real baseline run data (20 years of interest rates)
-├── MUIO/                                        # MUIO application with OG-CLEWS extension
-│   ├── API/
-│   │   └── app.py                              # Flask server with OG-Core routes
-│   ├── OG_CLEWS_Extension/
-│   │   ├── run_fastapi.py                      # FastAPI service startup script
-│   │   ├── backend/
-│   │   │   ├── og_fastapi.py                   # FastAPI endpoints (bidirectional)
-│   │   │   ├── og_routes.py                    # Flask routes (legacy)
-│   │   │   ├── etl_pipeline.py                 # Bidirectional data transformation
-│   │   │   ├── og_executor.py                  # OG-Core execution wrapper
-│   │   │   └── __init__.py
-│   │   ├── config/
-│   │   │   └── og_defaults.json                # Default OG-Core parameters
-│   │   └── README.md                           # Extension documentation
-│   └── WebAPP/
-│       ├── ogcore.html                         # OG-Core visualization page
-│       ├── Routes/Routes.Class.js              # Updated routing
-│       ├── App/View/Sidebar.html               # Updated navigation
-│       └── App/Controller/
-│           ├── OGCore.js                       # OG-Core controller (ES6)
-│           └── OGCoreSimple.js                 # OG-Core controller (non-ES6)
-└── OG-Core/                                     # OG-Core repository (cloned)
-    └── examples/OG-Core-Example/OUTPUT_BASELINE/
-        └── TPI/TPI_vars.pkl                    # Source of real interest rate data
+└── real_og_core_interest_rates.npy             # Real baseline run data (20 years)
 ```
+
+### MUIO Fork (Actual Integration)
+
+**The actual MUIO integration is in a separate fork:**
+
+🔗 **https://github.com/skxdev007/og-clews-muio-integration**
+
+This fork contains:
+- `OG_CLEWS_Extension/` - Complete FastAPI service and bidirectional ETL
+- Modified MUIO files with OG-Core integration
+- `OG_CORE_INTEGRATION.md` - Integration documentation
+
+The fork shows exactly what was added to MUIO (via GitHub's fork comparison).
 
 ### Key Files Explained
 
