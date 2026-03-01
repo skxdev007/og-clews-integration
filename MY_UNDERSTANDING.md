@@ -7,12 +7,12 @@ This document explains my understanding of the integration, what each file does,
 ## High-Level Overview
 
 ### The Problem
-CLEWS (energy system model) and OG-Core (macroeconomic model) need to exchange data bidirectionally:
-- **OG-Core → CLEWS**: Interest rates affect energy investment decisions
-- **CLEWS → OG-Core**: Energy prices affect macroeconomic production costs
+CLEWS (energy system model) and OG-Core (macroeconomic model) need to exchange data bidirectionaly:
+- OG-Core to CLEWS: Interest rates affect energy investment decisions
+- CLEWS to OG-Core: Energy prices affect macroeconomic production costs
 
 ### My Solution
-Create a **FastAPI service** that sits between the two models and handles bidirectional data transformation through an ETL pipeline.
+Create a FastAPI service that sits between the two models and handles bidirectional data transformation through an ETL pipeline.
 
 ---
 
@@ -62,7 +62,7 @@ Create a **FastAPI service** that sits between the two models and handles bidire
   - Reads `TPI_vars.pkl` from OG-Core baseline run
   - Extracts the 'r' array (interest rates over time)
   - Saves to `real_og_core_interest_rates.npy`
-- **Why it matters**: Proves we ran the actual model (not mock data)
+- **Why it matters**: Proves we ran the actual model (not mock data) and the results are geniune
 
 **`real_data_handshake_demo.py`**
 - **Purpose**: Demonstrate one-way OG-Core → CLEWS transformation
@@ -70,7 +70,7 @@ Create a **FastAPI service** that sits between the two models and handles bidire
   - Loads real interest rates from .npy file
   - Transforms to CLEWS DiscountRate (20-year average)
   - Shows economic interpretation
-- **Why it matters**: Simple demonstration of forward direction
+- **Why it matters**: Simple demostration of forward direction
 
 **`bidirectional_demo.py`**
 - **Purpose**: Demonstrate complete bidirectional coupling
@@ -87,9 +87,9 @@ Create a **FastAPI service** that sits between the two models and handles bidire
 - **Purpose**: Store real OG-Core baseline run outputs
 - **What it contains**: 320 years of interest rates (first 20 used for CLEWS)
 - **Why it matters**: 
-  - Proves genuine model execution (30+ minutes computation)
-  - Non-linear pattern (5.96% → 5.09% → 5.68%) shows real dynamics
-  - Any experienced modeler can verify this isn't fabricated
+  - Proves genuine model execution (30+ minutes computation time)
+  - Non-linear pattern (5.96% to 5.09% to 5.68%) shows real dynamics
+  - Any experienced modeler can verify this isnt fabricated
 
 #### Documentation
 
@@ -118,7 +118,7 @@ This is the actual integration - my additions to MUIO.
 
 #### OG_CLEWS_Extension Directory
 
-**`backend/og_fastapi.py`** ⭐ MAIN API SERVICE
+**`backend/og_fastapi.py`** MAIN API SERVICE
 - **Purpose**: FastAPI REST API for bidirectional coupling
 - **What it does**:
   - Provides async endpoints for all OG-Core operations
@@ -132,7 +132,7 @@ This is the actual integration - my additions to MUIO.
   - `POST /og/coupled_run` - Run complete bidirectional execution
 - **Why FastAPI**: Project brief explicitly requested FastAPI (not Flask)
 
-**`backend/etl_pipeline.py`** ⭐ TRANSFORMATION LOGIC
+**`backend/etl_pipeline.py`** TRANSFORMATION LOGIC
 - **Purpose**: Bidirectional data transformation between models
 - **What it does**:
   - `og_to_clews()`: Interest rates → CLEWS DiscountRate
@@ -310,11 +310,11 @@ This is the actual integration - my additions to MUIO.
 ### Technology Choices
 
 **Why FastAPI (not Flask)?**
-- Project brief explicitly requested FastAPI
+- Project brief explicity requested FastAPI
 - Modern async/await support
 - Automatic API documentation (Swagger/ReDoc)
 - Pydantic validation
-- Better performance for I/O-bound operations (OG-Core execution)
+- Better performance for I/O-bound operations (OG-Core execution takes long time)
 
 **Why Keep Flask Routes?**
 - MUIO's existing server is Flask
@@ -333,11 +333,11 @@ This is the actual integration - my additions to MUIO.
 ## Summary
 
 ### What I Built
-1. ✅ **FastAPI service** - Modern REST API for bidirectional coupling
-2. ✅ **ETL pipeline** - Transforms data both directions (OG ↔ CLEWS)
-3. ✅ **Real data integration** - Uses actual OG-Core outputs (not mock)
-4. ✅ **MUIO visualization** - Interactive charts integrated into MUIO
-5. ✅ **Proper fork structure** - Shows contribution to MUIO project
+1. FastAPI service - Modern REST API for bidirectional coupling
+2. ETL pipeline - Transforms data both directions (OG to CLEWS and back)
+3. Real data integration - Uses actual OG-Core outputs (not mock)
+4. MUIO visualization - Interactive charts integrated into MUIO
+5. Proper fork structure - Shows contribution to MUIO project
 
 ### How It Works
 1. OG-Core runs → produces interest rates
@@ -347,10 +347,10 @@ This is the actual integration - my additions to MUIO.
 5. OG-Core re-runs → completes feedback loop
 
 ### Why This Approach
-- **FastAPI**: Project requirement, better for async operations
-- **Bidirectional**: Closes the feedback loop (not just one-way)
-- **Real data**: Proves genuine model execution
-- **Proper fork**: Shows respect for open source contribution patterns
-- **Documentation**: Makes it easy for others to understand and extend
+- FastAPI: Project requirement, better for async operations
+- Bidirectional: Closes the feedback loop (not just one-way)
+- Real data: Proves genuine model execution
+- Proper fork: Shows respect for open source contribution patterns
+- Documentation: Makes it easy for others to understand and extend
 
-This integration enables true coupled modeling between macroeconomic and energy systems.
+This integration enables true coupled modeling between macroeconomic and energy systems and allows for iterative convergance.

@@ -1,6 +1,6 @@
 # Terminal Output - OG-CLEWS Integration
 
-This document shows actual terminal outputs from running the OG-CLEWS integration demonstrations.
+This document shows actual terminal outputs from runing the OG-CLEWS integration demonstrations.
 
 ---
 
@@ -18,8 +18,8 @@ Extracting Real Data from OG-Core Baseline Run
 
 Loading OG-Core results from: OG-Core/examples/OG-Core-Example/OUTPUT_BASELINE/TPI/TPI_vars.pkl
 
-✓ Successfully loaded TPI results
-✓ Found interest rate array 'r' with shape: (320,)
+Successfully loaded TPI results
+Found interest rate array 'r' with shape: (320,)
 
 Interest Rate Statistics (first 20 years):
   Year 0:  5.9645%
@@ -29,7 +29,7 @@ Interest Rate Statistics (first 20 years):
   Year 4:  5.8837%
   Year 5:  5.8635%
   Year 6:  5.8433%
-  Year 7:  5.0893%  ← Notice the drop (transition dynamics)
+  Year 7:  5.0893%  <- Notice the drop (transition dynamics)
   Year 8:  5.1095%
   Year 9:  5.1297%
   ...
@@ -40,7 +40,7 @@ Minimum: 5.0893%
 Maximum: 6.0178%
 Standard Deviation: 0.1371%
 
-✓ Saved to: real_og_core_interest_rates.npy
+Saved to: real_og_core_interest_rates.npy
 
 This is data from an actual OG-Core baseline run (took 30+ minutes computation).
 The non-linear pattern (5.96% → 5.09% → recovery) proves this is genuine model output.
@@ -88,7 +88,7 @@ For this demo, we'll use representative energy prices from a CLEWS run:
 STEP 3: CLEWS → OG-Core Transformation (BIDIRECTIONAL FEEDBACK)
 --------------------------------------------------------------------------------
 
-✓ Transformed CLEWS energy prices to OG-Core parameters
+Transformed CLEWS energy prices to OG-Core parameters
 
 Updated OG-Core Parameters:
   delta (depreciation rate): 0.052400
@@ -316,9 +316,9 @@ INFO:backend.etl_pipeline:Transformed interest rate: 0.056766 (5.6766%)
 ## Summary
 
 All outputs show:
-1. ✅ **Real OG-Core data** - Non-linear interest rates proving genuine execution
-2. ✅ **Bidirectional coupling** - Complete OG ↔ CLEWS transformation
-3. ✅ **FastAPI service** - Modern REST API with proper endpoints
-4. ✅ **Working integration** - MUIO successfully displays OG-Core data
+1. Real OG-Core data - Non-linear interest rates proving genuine execution
+2. Bidirectional coupling - Complete OG to CLEWS transformation
+3. FastAPI service - Modern REST API with proper endpoints
+4. Working integration - MUIO sucessfully displays OG-Core data
 
 The terminal outputs prove the integration is functional and uses real model data.
